@@ -16,7 +16,7 @@ services:
   nginx:
     image: nginx
     links:
-      - teamcity-server
+      - youtrack-server
     volumes:
       - "./server/yt.conf:/etc/nginx/conf.d/default.conf"
     environment:
