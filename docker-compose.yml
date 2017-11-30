@@ -1,45 +1,54 @@
 version: '2'
+volumes:
+    youtrack_data: {}
+    youtrack_home: {}
+    youtrack_conf: {}
+    certs_data: {}
+        
 
 services:
+    youtrack:
+        build: ./youtrack
+        container_name: youtrack
+        restart: always
+        volumes:
+            - youtrack_data:/opt/youtrack/data
+            - youtrack_conf:/opt/youtrack/conf
+            - youtrack_home:/opt/youtrack/.youtrack
+        
 
-  youtrack-server:
-    image: esycat/youtrack
-    container_name: youtrack
-    ports:
-      - 8082:8112
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-      - /data/youtrack:/var/lib/youtrack
-      - /data/youtrack/conf:/opt/youtrack/conf
+    nginx:
+        image: nginx
+        links:
+            - youtrack
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - "./nginx/html:/usr/share/nginx/html"
+            - "./nginx/certs:/etc/nginx/certs"
+            - "./nginx/vhost.d:/etc/nginx/vhost.d"
+            - "./nginx/conf.d:/etc/nginx/conf.d"
 
-  nginx:
-    image: nginx
-    links:
-      - youtrack-server
-    volumes:
-      - "./server/yt.conf:/etc/nginx/conf.d/default.conf"
-    environment:
-      # set your domain name and email!
-      VIRTUAL_HOST: youtrack.example.com
-      LETSENCRYPT_HOST: youtrack.example.com
-      LETSENCRYPT_EMAIL: username@example.ru
+        environment:
+             # set your domain name and email!
+             VIRTUAL_HOST: youtrack.unibid.io
+             LETSENCRYPT_HOST: youtrack.unibid.io
+             LETSENCRYPT_EMAIL: kabanov.mike@gmail.com
 
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - "./nginx/vhost.d:/etc/nginx/vhost.d"
-      - "./nginx/html:/usr/share/nginx/html"
-      - "./nginx/certs:/etc/nginx/certs"
-      - "/var/run/docker.sock:/tmp/docker.sock:ro"
-      - "./server/proxy.conf:/etc/nginx/conf.d/proxy.conf"
+    dockergen:
+        image: jwilder/docker-gen
+        command: -notify-sighup nginx -watch /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+        volumes_from:
+          - nginx
+        volumes:
+          - /var/run/docker.sock:/tmp/docker.sock:ro
+          - ./nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl
 
-  letsencrypt-nginx-proxy-companion:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    volumes_from:
-      - "nginx-proxy"
+
+    letsencrypt-nginx-proxy-companion:
+        image: jrcs/letsencrypt-nginx-proxy-companion
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock:ro"
+        volumes_from:
+            - "nginx"
