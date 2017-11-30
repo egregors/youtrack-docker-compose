@@ -32,7 +32,7 @@ services:
              # set your domain name and email!
              VIRTUAL_HOST: localhost
              LETSENCRYPT_HOST: localhost
-             LETSENCRYPT_EMAIL: kabanov.mike@gmail.com
+             LETSENCRYPT_EMAIL: example@domain.com
 
     dockergen:
         image: jwilder/docker-gen
