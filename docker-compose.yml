@@ -32,8 +32,8 @@ services:
 
         environment:
              # set your domain name and email!
-             VIRTUAL_HOST: youtrack.unibid.io
-             LETSENCRYPT_HOST: youtrack.unibid.io
+             VIRTUAL_HOST: localhost
+             LETSENCRYPT_HOST: localhost
              LETSENCRYPT_EMAIL: kabanov.mike@gmail.com
 
     dockergen:
