@@ -3,8 +3,6 @@ volumes:
     youtrack_data: {}
     youtrack_home: {}
     youtrack_conf: {}
-    certs_data: {}
-        
 
 services:
     youtrack:
@@ -15,7 +13,7 @@ services:
             - youtrack_data:/opt/youtrack/data
             - youtrack_conf:/opt/youtrack/conf
             - youtrack_home:/opt/youtrack/.youtrack
-        
+
 
     nginx:
         image: nginx
