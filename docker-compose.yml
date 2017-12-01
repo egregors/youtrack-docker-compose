@@ -29,9 +29,9 @@ services:
             - "./nginx/conf.d:/etc/nginx/conf.d"
         environment:
              # set your domain name and email!
-             VIRTUAL_HOST: localhost
-             LETSENCRYPT_HOST: localhost
-             LETSENCRYPT_EMAIL: example@domain.com
+             VIRTUAL_HOST: youtrack.example.com
+             LETSENCRYPT_HOST: youtrack.example.com
+             LETSENCRYPT_EMAIL: username@example.com
 
     dockergen:
         image: jwilder/docker-gen
@@ -43,7 +43,7 @@ services:
           - ./nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl
 
     letsencrypt-nginx-proxy-companion:
-        image: jrcs/letsencrypt-nginx-proxy-companion
+        image: jrcs/letsencrypt-nginx-proxy-companion:latest
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:ro"
         volumes_from:

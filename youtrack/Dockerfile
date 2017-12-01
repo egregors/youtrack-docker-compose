@@ -15,8 +15,6 @@ RUN wget \
  https://download.jetbrains.com/charisma/youtrack-${YOUTRACK_VERSION}.jar \
  -O /opt/youtrack/bin/youtrack.jar
 
-#ADD youtrack.jar /opt/youtrack/bin/
-
 ADD supervisor/youtrack.conf /etc/supervisor/conf.d/youtrack.conf
 
 EXPOSE 8001/tcp
