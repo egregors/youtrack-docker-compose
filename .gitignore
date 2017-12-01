@@ -1,2 +1,2 @@
-nginx/conf.d/default/
+nginx/conf.d/default.conf
 nginx/certs/
