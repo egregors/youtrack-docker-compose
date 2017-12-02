@@ -36,7 +36,7 @@ Next, build the images:
 
 ```
 cd youtrack-docker-compose
-docker-compose build --push
+docker-compose build --pull
 ```
 
 Now you can Up the service and continue settings in Web Interface:
