@@ -36,9 +36,9 @@ just set your domain name and email for `nginx` service in compose file:
         - "./nginx/conf.d:/etc/nginx/conf.d"
     environment:
          # set your domain name and email!
-         VIRTUAL_HOST: localhost
-         LETSENCRYPT_HOST: localhost
-         LETSENCRYPT_EMAIL: example@domain.com
+         VIRTUAL_HOST: youtrack.example.com
+         LETSENCRYPT_HOST: youtrack.example.com
+         LETSENCRYPT_EMAIL: username@example.com
 ```
 
 ## Building and setup
