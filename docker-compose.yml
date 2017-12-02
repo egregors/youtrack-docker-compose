@@ -27,11 +27,8 @@ services:
             - "./nginx/certs:/etc/nginx/certs"
             - "./nginx/vhost.d:/etc/nginx/vhost.d"
             - "./nginx/conf.d:/etc/nginx/conf.d"
-        environment:
-             # set your domain name and email!
-             VIRTUAL_HOST: youtrack.example.com
-             LETSENCRYPT_HOST: youtrack.example.com
-             LETSENCRYPT_EMAIL: username@example.com
+        env_file:
+          - .env
 
     dockergen:
         image: jwilder/docker-gen

@@ -15,30 +15,19 @@ git clone https://github.com/Egregors/youtrack-docker-compose.git
 
 ## Configuration
 
-All you need is just setup your domain and email for HTTPs(SSL) support.
+HTTPs is ON, by default. All you need is just set your domain name and email variables in `env.example` 
+and rename env.example` to `.env`
+
+Don't push `.env` file in public repositories!
 
 HTTPs support provided by Let's Encrypt certificates 
 (see https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) 
-just set your domain name and email for `nginx` service in compose file:
 
 ```
-  nginx:
-    image: nginx
-    links:
-        - youtrack
-    ports:
-        - "80:80"
-        - "443:443"
-    volumes:
-        - "./nginx/html:/usr/share/nginx/html"
-        - "./nginx/certs:/etc/nginx/certs"
-        - "./nginx/vhost.d:/etc/nginx/vhost.d"
-        - "./nginx/conf.d:/etc/nginx/conf.d"
-    environment:
-         # set your domain name and email!
-         VIRTUAL_HOST: youtrack.example.com
-         LETSENCRYPT_HOST: youtrack.example.com
-         LETSENCRYPT_EMAIL: username@example.com
+VIRTUAL_HOST=youtrack.example.com
+LETSENCRYPT_HOST=youtrack.example.com
+
+LETSENCRYPT_EMAIL=username@example.com
 ```
 
 ## Building and setup
