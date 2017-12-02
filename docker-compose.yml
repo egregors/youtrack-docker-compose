@@ -43,7 +43,7 @@ services:
           - ./nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl
 
     letsencrypt-nginx-proxy-companion:
-        image: jrcs/letsencrypt-nginx-proxy-companion:latest
+        image: jrcs/letsencrypt-nginx-proxy-companion:stable
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:ro"
         volumes_from:

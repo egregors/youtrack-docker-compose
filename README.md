@@ -47,13 +47,18 @@ Next, build the images:
 
 ```
 cd youtrack-docker-compose
-docker-compose build
+docker-compose build --push
 ```
 
 Now you can Up the service and continue settings in Web Interface:
 
 ```
 docker-compose up -d
+```
+
+**Note: First start can take a long time. Check logs to be sure everything ok:**
+```
+docker-compose logs -f
 ```
 
 After initialisation Web Interface will be available on `https://yourdockerhost/`
