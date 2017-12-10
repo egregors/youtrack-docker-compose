@@ -2,6 +2,7 @@
 Compose to create working [YouTrack](https://www.jetbrains.com/youtrack/) server
 
 ![State](https://img.shields.io/badge/state-unstable-red.svg)
+![Version](https://img.shields.io/badge/YourTrack%20ver.%3A-2017.4.38030-brightgreen.svg)
 
 **YouTrack Dockerfile for this compose based on [this](https://github.com/uniplug/youtrack-docker) repo**
 
