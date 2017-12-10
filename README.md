@@ -1,12 +1,11 @@
 # youtrack-docker-compose
 Compose to create working [YouTrack](https://www.jetbrains.com/youtrack/) server
 
-![State](https://img.shields.io/badge/state-unstable-red.svg)
+![state](https://img.shields.io/badge/state-stable-brightgreen.svg)
+![ssl](https://img.shields.io/badge/SSL-OK-brightgreen.svg)
 ![Version](https://img.shields.io/badge/YourTrack%20ver.%3A-2017.4.38030-brightgreen.svg)
 
 **YouTrack Dockerfile for this compose based on [this](https://github.com/uniplug/youtrack-docker) repo**
-
-Current YouTrack version: **2017.4.37933**
 
 # How to use
 
@@ -18,7 +17,7 @@ git clone https://github.com/Egregors/youtrack-docker-compose.git
 
 ## Configuration
 
-HTTPs is ON, by default. All you need is just set your domain name and email variables in `env.example` 
+HTTPs support is ON, by default. All you need is just set your domain name and email variables in `env.example` 
 and rename env.example` to `.env`
 
 Don't push `.env` file in public repositories!
@@ -59,5 +58,5 @@ Note: your SSL certs will be saved in ./nginx/certs folder.
 
 ## Contributing
 
-Bug reports, bug fixes, and new features are always welcome.
-Please 
+Bug reports, bug fixes and new features are always welcome.
+Please open issues and submit pull requests for any new code.
