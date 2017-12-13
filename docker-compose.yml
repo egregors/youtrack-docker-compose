@@ -22,6 +22,7 @@ services:
     nginx:
         image: nginx
         container_name: nginx
+        restart: always
         links:
             - youtrack
         ports:
