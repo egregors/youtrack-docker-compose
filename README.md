@@ -3,7 +3,9 @@ Compose to create working [YouTrack](https://www.jetbrains.com/youtrack/) server
 
 ![state](https://img.shields.io/badge/state-stable-brightgreen.svg)
 ![ssl](https://img.shields.io/badge/SSL-OK-brightgreen.svg)
-![Version](https://img.shields.io/badge/YourTrack%20ver.%3A-2017.4.38030-brightgreen.svg)
+![Version](https://img.shields.io/badge/YouTrack%20ver.%3A-2018.1.40341-brightgreen.svg)
+
+**This configuration use official UpSource image**
 
 # How to use
 

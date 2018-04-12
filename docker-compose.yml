@@ -2,22 +2,20 @@ version: '2'
 
 volumes:
     youtrack_data: {}
-    youtrack_home: {}
     youtrack_conf: {}
+    youtrack_logs: {}
+    youtrack_backups: {}
 
 services:
     youtrack:
-        build:
-          context: ./youtrack
-          args:
-            YOUTRACK_VERSION: 2017.4.38030
-
+        image: jetbrains/youtrack:2018.1.40341
         container_name: youtrack
         restart: always
         volumes:
             - youtrack_data:/opt/youtrack/data
             - youtrack_conf:/opt/youtrack/conf
-            - youtrack_home:/opt/youtrack/.youtrack
+            - youtrack_logs:/opt/youtrack/logs
+            - youtrack_backups:/opt/youtrack/backups
 
     nginx:
         image: nginx
