@@ -1,21 +1,15 @@
 version: '2'
 
-volumes:
-    youtrack_data: {}
-    youtrack_conf: {}
-    youtrack_logs: {}
-    youtrack_backups: {}
-
 services:
     youtrack:
-        image: jetbrains/youtrack:2018.1.40341
+        image: jetbrains/youtrack:2018.1.41051
         container_name: youtrack
         restart: always
         volumes:
-            - youtrack_data:/opt/youtrack/data
-            - youtrack_conf:/opt/youtrack/conf
-            - youtrack_logs:/opt/youtrack/logs
-            - youtrack_backups:/opt/youtrack/backups
+            - /opt/youtrack/data:/opt/youtrack/data
+            - /opt/youtrack/conf:/opt/youtrack/conf
+            - /opt/youtrack/logs:/opt/youtrack/logs
+            - /opt/youtrack/backups:/opt/youtrack/backups
 
     nginx:
         image: nginx

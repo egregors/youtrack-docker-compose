@@ -3,7 +3,7 @@ Compose to create working [YouTrack](https://www.jetbrains.com/youtrack/) server
 
 ![state](https://img.shields.io/badge/state-stable-brightgreen.svg)
 ![ssl](https://img.shields.io/badge/SSL-OK-brightgreen.svg)
-![Version](https://img.shields.io/badge/YouTrack%20ver.%3A-2018.1.40341-brightgreen.svg)
+![Version](https://img.shields.io/badge/YouTrack%20ver.%3A-2018.1.41051-brightgreen.svg)
 
 **This configuration use official YouTrack image**
 
@@ -16,6 +16,17 @@ git clone https://github.com/Egregors/youtrack-docker-compose.git
 ```
 
 ## Configuration
+
+### Create and Configure YouTrack-specific Directories
+
+They must be accessible to the user account that is used to run YouTrack service inside the container. 
+YouTrack uses the non-root account 13001:13001 (group:id, respectively).
+```
+mkdir -p -m 750 /opt/youtrack/data /opt/youtrack/logs /opt/youtrack/conf /opt/youtrack/backups
+chown -R 13001:13001 /opt/youtrack/data /opt/youtrack/logs /opt/youtrack/conf /opt/youtrack/backups
+```
+
+### SSL
 
 HTTPs support is ON, by default. All you need is just set your domain name and email variables in `env.example` 
 and rename env.example` to `.env`
@@ -38,6 +49,7 @@ Next, build the images:
 cd youtrack-docker-compose
 docker-compose build --pull
 ```
+All working folders will be mapped to `/opt/youtrack/*` on a host.
 
 Now you can Up the service and continue settings in Web Interface:
 ```
