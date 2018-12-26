@@ -2,7 +2,7 @@ version: '2'
 
 services:
     youtrack:
-        image: jetbrains/youtrack:2018.2.45513
+        image: jetbrains/youtrack:2018.4.48293
         container_name: youtrack
         restart: always
         volumes:
