@@ -1,2 +1,1 @@
-nginx/certs/
-nginx/conf.d/default.conf
+.env

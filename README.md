@@ -2,10 +2,13 @@
 Compose to create working [YouTrack](https://www.jetbrains.com/youtrack/) server
 
 ![state](https://img.shields.io/badge/state-stable-brightgreen.svg)
-![ssl](https://img.shields.io/badge/SSL-OK-brightgreen.svg)
-![Version](https://img.shields.io/badge/YouTrack%20ver.%3A-2018.4.48293-brightgreen.svg)
+![ssl](https://img.shields.io/badge/HTTPs-traefik-brightgreen.svg)
+![Version](https://img.shields.io/badge/YouTrack%20ver.%3A-2019.1.52973-brightgreen.svg)
 
-**This configuration use official YouTrack image**
+**This configuration use official images**
+
+[YouTrack](https://hub.docker.com/r/jetbrains/youtrack)
+[Traefik](https://hub.docker.com/_/traefik)
 
 # How to use
 
@@ -28,17 +31,16 @@ chown -R 13001:13001 /opt/youtrack/data /opt/youtrack/logs /opt/youtrack/conf /o
 
 ### SSL
 
-HTTPs support is ON, by default. All you need is just set your domain name and email variables in `env.example` 
+HTTPs entry point is enabled by default thanks to [traefik](https://traefik.io/). 
+All you need is just set your domain name and email variables in `env.example` 
 and rename env.example` to `.env`
 
 Don't push `.env` file in public repositories!
 
-HTTPs support provided by Let's Encrypt certificates 
-(see https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) 
 ```
 VIRTUAL_HOST=youtrack.example.com
-LETSENCRYPT_HOST=youtrack.example.com
 
+LETSENCRYPT_HOST=youtrack.example.com
 LETSENCRYPT_EMAIL=username@example.com
 ```
 
