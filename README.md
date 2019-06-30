@@ -46,22 +46,26 @@ LETSENCRYPT_EMAIL=username@example.com
 
 ## Building and setup
 
-Next, build the images:
+Next, build the images: `make build`
+
+or
+
 ```
-cd youtrack-docker-compose
 docker-compose build --pull
 ```
+
 All working folders will be mapped to `/opt/youtrack/*` on a host.
 
-Now you can Up the service and continue settings in Web Interface:
+Now you can Up the service and continue settings in Web Interface: `make up`
+
+or 
+
 ```
-docker-compose up -d
+mkdir -p /opt/traefik && touch /opt/traefik/acme.json && chmod 600 /opt/traefik/acme.json
+docker-compose up -d && docker-compose logs -f -t --tail=10
 ```
 
 **Note: First start can take a long time. Check logs to be sure everything ok:**
-```
-docker-compose logs -f
-```
 
 After initialisation Web Interface will be available on `https://yourdockerhost/`
 
