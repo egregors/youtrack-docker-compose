@@ -3,8 +3,10 @@ version: '3'
 services:
   youtrack:
     image: jetbrains/youtrack:2019.1.52973
+    networks:
+      - web
+      - default
     container_name: youtrack
-    restart: always
     ports:
       - "8080"
     volumes:
@@ -26,9 +28,9 @@ services:
 
   traefik:
     image: traefik
-    restart: always
+    restart: on-failure
     command:
-      - --logLevel=DEBUG
+      - --logLevel=ERROR
       - --docker
       - --docker.watch=true
       - --docker.exposedByDefault=false
