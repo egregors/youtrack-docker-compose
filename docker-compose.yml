@@ -1,66 +1,38 @@
-version: '3'
+version: "3.3"
 
 services:
-  youtrack:
-    image: jetbrains/youtrack:2019.1.52973
-    networks:
-      - web
-      - default
-    container_name: youtrack
-    ports:
-      - "8080"
-    volumes:
-      - /opt/youtrack/data:/opt/youtrack/data
-      - /opt/youtrack/conf:/opt/youtrack/conf
-      - /opt/youtrack/logs:/opt/youtrack/logs
-      - /opt/youtrack/backups:/opt/youtrack/backups
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=server"
-      - "traefik.frontend.rule=Host:${VIRTUAL_HOST}"
-      - "traefik.docker.network=web"
-      - "traefik.port=8080"
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "5"
 
   traefik:
-    image: traefik:1.7-alpine
-    restart: on-failure
+    image: "traefik:v2.2"
+    container_name: "traefik"
     command:
-      - --logLevel=ERROR
-      - --docker
-      - --docker.watch=true
-      - --docker.exposedByDefault=false
-      - --docker.domain=${VIRTUAL_HOST}
-      - --defaultEntryPoints=http,https
-      - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
-      - --entryPoints=Name:https Address::443 TLS
-      - --acme=true
-      - --acme.domains=${LETSENCRYPT_HOST}
-      - --acme.email=${LETSENCRYPT_EMAIL}
-      - --acme.storage=acme.json
-      - --acme.OnHostRule=false
-      - --acme.onDemand=false
-      - --acme.entryPoint=https
-      - --acme.httpChallenge
-      - --acme.httpChallenge.entryPoint=http
+      - "--log.level=INFO"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=:${LETSENCRYPT_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
-      - "80:80"
       - "443:443"
-    networks:
-      - web
+      - "80:80"
+      - "8080:8080"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/traefik/acme.json:/acme.json
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "5"
+      - "/srv/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
-networks:
-  web:
-    external: true
+  youtrack:
+    image: jetbrains/youtrack:2020.2.7479
+    container_name: "youtrack"
+    volumes:
+      - /srv/youtrack/data:/opt/youtrack/data
+      - /srv/youtrack/conf:/opt/youtrack/conf
+      - /srv/youtrack/logs:/opt/youtrack/logs
+      - /srv/youtrack/backups:/opt/youtrack/backups
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.youtrack.loadbalancer.server.port=8080"
+      - "traefik.http.routers.youtrack.rule=Host(`${VIRTUAL_HOST}`)"
+      - "traefik.http.routers.youtrack.entrypoints=websecure"
+      - "traefik.http.routers.youtrack.tls.certresolver=myresolver"
