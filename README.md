@@ -25,8 +25,7 @@ git clone https://github.com/Egregors/youtrack-docker-compose.git
 They must be accessible to the user account that is used to run YouTrack service inside the container. 
 YouTrack uses the non-root account 13001:13001 (group:id, respectively).
 ```
-mkdir -p -m 750 /opt/youtrack/data /opt/youtrack/logs /opt/youtrack/conf /opt/youtrack/backups
-chown -R 13001:13001 /opt/youtrack/data /opt/youtrack/logs /opt/youtrack/conf /opt/youtrack/backups
+mkdir -p /srv/letsencrypt && mkdir -p -m 750 /src/youtrack/{data,conf,backups,logs} && chown -R 13001:13001 /srv/youtrack
 ```
 
 ### SSL
@@ -40,7 +39,6 @@ Don't push `.env` file in public repositories!
 ```
 VIRTUAL_HOST=youtrack.example.com
 
-LETSENCRYPT_HOST=youtrack.example.com
 LETSENCRYPT_EMAIL=username@example.com
 ```
 
@@ -69,7 +67,7 @@ docker-compose up -d && docker-compose logs -f -t --tail=10
 
 After initialisation Web Interface will be available on `https://yourdockerhost/`
 
-Note: your SSL certs will be saved in ./nginx/certs folder.
+Note: your SSL certs will be saved in /srv/letsencrypt folder.
 
 ## Contributing
 
