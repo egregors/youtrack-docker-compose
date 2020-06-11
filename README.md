@@ -3,7 +3,7 @@ Compose to create working [YouTrack](https://www.jetbrains.com/youtrack/) server
 
 ![state](https://img.shields.io/badge/state-stable-brightgreen.svg)
 ![ssl](https://img.shields.io/badge/HTTPs-traefik-brightgreen.svg)
-![Version](https://img.shields.io/badge/YouTrack%20ver.%3A-2019.1.52973-brightgreen.svg)
+![Version](https://img.shields.io/badge/YouTrack%20ver.%3A-2020.2.7479-brightgreen.svg)
 
 **This configuration use official images**
 
@@ -32,13 +32,14 @@ mkdir -p /srv/letsencrypt && mkdir -p -m 750 /src/youtrack/{data,conf,backups,lo
 
 HTTPs entry point is enabled by default thanks to [traefik](https://traefik.io/). 
 All you need is just set your domain name and email variables in `env.example` 
-and rename env.example` to `.env`
+and rename env.example to `.env`
 
 Don't push `.env` file in public repositories!
 
 ```
 VIRTUAL_HOST=youtrack.example.com
 
+LETSENCRYPT_HOST=youtrack.example.com
 LETSENCRYPT_EMAIL=username@example.com
 ```
 
@@ -59,7 +60,6 @@ Now you can Up the service and continue settings in Web Interface: `make up`
 or 
 
 ```
-mkdir -p /opt/traefik && touch /opt/traefik/acme.json && chmod 600 /opt/traefik/acme.json
 docker-compose up -d && docker-compose logs -f -t --tail=10
 ```
 
