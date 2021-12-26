@@ -25,7 +25,7 @@ git clone https://github.com/Egregors/youtrack-docker-compose.git
 They must be accessible to the user account that is used to run YouTrack service inside the container. 
 YouTrack uses the non-root account 13001:13001 (group:id, respectively).
 ```
-mkdir -p /srv/letsencrypt && mkdir -p -m 750 /src/youtrack/{data,conf,backups,logs} && chown -R 13001:13001 /srv/youtrack
+mkdir -p /srv/letsencrypt && mkdir -p -m 750 /srv/youtrack/{data,conf,backups,logs} && chown -R 13001:13001 /srv/youtrack
 ```
 
 ### SSL
